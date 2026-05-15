@@ -21,7 +21,7 @@ it to pygame automatically — no driver needed.
 First time, pass your Roborock account email so the script can request a login code:
 
 ```bash
-python qrevo_drive.py --email you@example.com
+source .venv/bin/activate && python -u qrevo_drive.py --email you@example.com
 ```
 
 You'll get a 6-digit code by email; paste it into the terminal. After that the
@@ -29,28 +29,53 @@ script caches your token at `~/.roborock_creds.json` (chmod 600), and subsequent
 runs are zero-prompt:
 
 ```bash
-python qrevo_drive.py
+source .venv/bin/activate && python -u qrevo_drive.py
 ```
 
 To force keyboard mode even with a gamepad attached:
 
 ```bash
-python qrevo_drive.py --keyboard
+source .venv/bin/activate && python -u qrevo_drive.py --keyboard
 ```
 
 To wipe the cached credentials:
 
 ```bash
-python qrevo_drive.py --logout
+source .venv/bin/activate && python -u qrevo_drive.py --logout
 ```
+
+The script auto-resets any stuck manual-control / cleaning state on every
+start, so a hard kill won't leave the vacuum hung.
 
 ## Controls
 
-| | Gamepad | Keyboard |
+### Gamepad (Xbox Series X / standard SDL game controller)
+
+| Button | Action | Effect |
 |---|---|---|
-| Forward / back | Left stick Y | `W` `S` or `↑` `↓` |
-| Turn left / right | Left stick X | `A` `D` or `←` `→` |
-| Quit | `B` / Circle | `ESC` or `Q` |
+| Left stick | Drive | Forward / back / turn |
+| **A** | Start full clean | Exits drive mode |
+| **Y** | Pause clean | Exits drive mode |
+| **X** | Spot clean | Exits drive mode |
+| **Back / View** | Return to dock | Exits drive mode |
+| **Start / Menu** | Stop | Exits drive mode |
+| **D-pad Down** | Empty dustbin into dock | Exits drive mode |
+| **D-pad Left** | Dock + wash mop | Exits drive mode |
+| **D-pad Up** | Find me (beep) | Stays in drive mode |
+| **D-pad Right** | Toggle mop on / off (water flow) | Stays in drive mode |
+| **LB / RB** | Fan power down / up (quiet → balanced → turbo → max) | Stays in drive mode |
+| **B / Circle** | Quit | — |
+
+"Exits drive mode" means the script releases manual control, fires the action,
+and quits. Re-run the script to drive again.
+
+### Keyboard fallback
+
+| | Keyboard |
+|---|---|
+| Forward / back | `W` `S` or `↑` `↓` |
+| Turn left / right | `A` `D` or `←` `→` |
+| Quit | `ESC` or `Q` |
 
 In keyboard mode a small pygame window opens — keep it focused for keys to register.
 
