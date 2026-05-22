@@ -1,4 +1,12 @@
-# Qrevo Drive
+# Roborock Drive
+
+
+
+https://github.com/user-attachments/assets/22f465e7-4b47-423a-b77e-0a6ef1ea6b40
+
+
+
+
 
 Joystick / keyboard remote control for a Roborock Qrevo Plus, using
 [`python-roborock`](https://github.com/Python-roborock/python-roborock) and pygame.
